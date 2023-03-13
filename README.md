@@ -1,0 +1,2 @@
+# MYSQL_case_study
+mySQL_case_study__for_practice_whichcover_many_queries
