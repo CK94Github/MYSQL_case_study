@@ -2,9 +2,12 @@
 
 mySQL_case_study__for_practice_whichcover_many_queries
 
+
 create table grocery(s_id primary key,p_name varchar(20), price float;
 
+
 insert into grocery(s_id,p_name,price)values(1,"oil",130),(2,"suger",50),(3,"wheat",40);
+
 
 MariaDB [chaitanya]> select * from grocery;
 
