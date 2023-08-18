@@ -1,0 +1,164 @@
+mysql -u root        // command for XAMMP tool to begine work//
+use chaitanya        // directory created under chaitanya folder//
+
+
+
+create table employee(id int,name varchar(10),salary float, designation varchar (20));
+
+*DML commaNDS*
+
+ insert into emplyee values(1,"chaitnaya",50,"engineer"); 
+ select * from emplyee; // show all containt from table// 
+
+insert into emplyee(id,name,salary,designation)values(2,"nikita",20,"associate"),(3,"pavan",50,"data_analyst"),(4,"sumit",70,"analyst"),(5,"ganesh",50,"engineer"); // adding multiple rows from single command//
+
+alter table emplyee add column city varchar(20); // adding new coloumn in table//
+
+update emplyee set city="mumbai" where id=3;
+
+alter table emplyee add column DOJ date;        // adding new column in table// 
+
+update emplyee set DOJ="2016-06-01" where id=1;   // adding DOJ data to perticular row//
+
+
+
+*21/12/2022*
+
+create table customer(id int primary key, name varchar(20) not null, address varchar(20) unique, pincode int, age int check (age>18));
+desc customer;
+
+ex: insert into customer(200,"omkar","sangli",416416,28);
+
+
+
+*add column in table* 
+alter table customer add column mobilenumber int; 
+
+alter table customer drop column city;
+
+*change column name*
+alter table customer change name cust_name varchar(20);
+
+*rename table name*
+
+alter table customer rename customer1;
+
+*22-12-2022*
+
+
+create table book(bid int primary key, bname varchar(30) unique, price float not null, pages int check (pages>100));
+
+insert into book(bid,bname,price,pages,auther)values(1000,"java",2232,200,"james"),(2000,"python",34334,400,"pqr"),(3000,"sql",21321,500,"xyz"),(4000,"oracle",2343,600,"brijani");
+
+alter table book add column rating int;
+
+
+select * from book where bname="java" or bname="sql" or bname="c";  // multiple values with OR
+
+select * from book where bname in("java","sql","c");      // use in keyword shortcut for multiple values OR//
+
+select distinct auther from book;                        // retrive only unique records// 
+
+*order by** 
+asc- assending clouse
+desc- desending clouse //no where condition need to use// 
+
+select * from book where bid between 1000 and 7000;  // between keyword for selecting values withing specified range//
+
+
+select * from book order by bid DESC limit 5;       // last 5 records without using where//
+
+
+delete from book where bid=5000; // delete perticular row from the table// 
+
+truncate table customer          // remove all containts of table// 
+
+drop table table name            // remove perticular column can not be retained// 
+
+drop database                    // remove entire database can not be retained//
+
+select * from book where pages>=500;   // query for specific coloum//
+
+relational operators** 
+
+
+select auther,rating from book where pages<=500; // // query for specific containt //
+
+select auther,rating from book where bname="sql"; // query for specific cnotain using where command//
+
+** logical operators **
+
+
+ select * from book where pages=200 or pages=500;
+
+select * from book where pages<600 and auther="pqr"; // work if both conditions satisfy//
+
+select bname,rating from book where pages<600 and auther="pqr";
+
+
+**what is difference between now date and sysdate. ?? interview question
+
+last_date : last date of month 
+
+
+**select position of character with like keyword**
+
+select * from book where bname like 'p%';   // starts with// 
+
+ update book set pub_date="2022-09-08" where bid=1000;   // add date
+
+select concat(bname," ",price) from book; // make 2 columns together 
+
+select upper(auther)as "result"from book;   // upper case 
+
+select lower(auther)as "result" from book;   // lower case//
+
+select replace(bname,"perl","XYZS")as "result" from book;  // replace perl to XYZS//
+
+select length(bname) from book;                // length //
+
+select rating,sum(pages) as "total count" from book group by rating having sum(pages)>700;   // having clouse used for rerulting multiple results along with group by clouse. 
+
+
+*primary key and foregin key**
+
+create table customer1(c_id int primary key,c_name varchar(20),c_address varchar(20)); // new table wid primary key
+
+create table product1(p_id int primary key,p_quantity int,price float,c_id int,foreign key(c_id) references customer1(c_id));                   // how to use foregine key
+
+
+insert into customer1(c_id,c_name,c_address)values(10,"ram","pune"),(20,"sham","mumbai"),(30,"jack","washi"),(40,"jack","washi");
+
+
+
+
+select customer1.c_id, customer1.c_name,customer1.c_address,product1.price from customer1 inner join product1 on customer1.c_id=product1.c_id;                  
+
+select customer1.c_id, customer1.c_name,customer1.c_address,product1.price from customer1 left join product1 on customer1.c_id=product1.c_id;
+
+select customer1.c_id, customer1.c_name,customer1.c_address,product1.price from customer1 right join product1 on customer1.c_id=product1.c_id;
+
+create table emp_details(e_id int,e_name varchar(20),e_salary float, d_id int);
+
+insert into emp_details values(3000,"pooja",7000,402);
+
+
+
+create table dept_details(d_id int,d_name varchar(20),e_grade varchar(20), e_id int);
+
+
+select * from emp_details where e_salary=(select max(e_salary)from emp_details);
+
+select e_id,e_salary from emp_details where e_salary>(select e_salary from emp_details where e_id=1000);
+
+select * from emp_details where e_salary=(select min(e_salary)from emp_details);
+
+
+
+select * from emp_details where e_salary >all (select e_salary  where d_id=401);
+
+
+
+
+
+
